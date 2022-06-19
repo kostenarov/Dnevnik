@@ -20,15 +20,15 @@ class User
             this->password = password;
         }
         
-        const string& getName()const{  return this->username;  }
+        const string& getUsername()const{  return this->username;  }
         const string& getPassword()const{  return this->password;  }
         
-        void setName(string username){  
+        void setUsername(const string& username){  
             if(!username.empty())
                 throw invalid_argument("Invalid data");
             this->username = username;
         }
-        void setPassword(string password){        
+        void setPassword(const string& password){        
             if(!password.empty())
                 throw invalid_argument("Invalid data");
             this->password = password;
@@ -36,6 +36,8 @@ class User
 };
 
 int main(){
+    
+    printf("Hello World");
 
     return 0;
 }
