@@ -25,14 +25,14 @@ class User
         
         void setUsername(const string& username){ 
             
-            if(!username.empty())
+            if(username.empty())
                 throw invalid_argument("Invalid data");
                 
             this->username = username;
         }
         void setPassword(const string& password){  
             
-            if(!password.empty())
+            if(password.empty())
                 throw invalid_argument("Invalid data");
                 
             this->password = password;
