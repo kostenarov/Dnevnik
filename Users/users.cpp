@@ -19,6 +19,9 @@ class User
                 throw invalid_argument("Invalid data");
         }
         
+        User(const User& other)
+        : username(other.username), password(other.password), diaries(other.diaries){}
+        
         const string& getUsername()const{  return this->username;  }
         const string& getPassword()const{  return this->password;  }
         const vector<Diary>& getDiaries() const { return this->diaries; }
