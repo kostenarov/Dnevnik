@@ -37,7 +37,7 @@ size_t keyToNum(string& key) {
 }
 
 void CBC(string& str, string& key, string& vect) {
-    size_t strLen = str.size();
+    	size_t strLen = str.size();
 	size_t vectLen = vect.size();
 	
 	for (size_t i = 0; i < strLen; ++i) {
@@ -51,7 +51,7 @@ void CBC(string& str, string& key, string& vect) {
 
 
 void DeCBC(string& str, string& key, string& vect, size_t vectLen) {
-    size_t strLen = str.size();
+    	size_t strLen = str.size();
 	string tempVect = str;
 	
 	decipherN(str, strLen, keyToNum(key));
