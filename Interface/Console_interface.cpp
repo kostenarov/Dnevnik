@@ -51,17 +51,29 @@ void menu(const string& username)
             case 1:
             {
                 string date, storyName, storyTemp, story;
+                size_t counter = 0;
                 cout << "Date:";
                 cin >> date;
-                cout << "Story:";
+                cout << "Story name:";
                 cin >> storyName;
                 cout << "Enter story:";
                 while(getline(cin, storyTemp))
                 {
-                    story += storyTemp;
+                    if(story != "\n")
+                    {
+                        story += storyTemp;
+                        
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 Story story1(date, storyName, story);
                 story1.writeStory(story1, username);
+                date.erase();
+                storyName.erase();
+                story.erase();
             }
             case 2:
                 break;
@@ -74,11 +86,11 @@ void login()
     cout << "1: Login" << endl << "2: Register";
     size_t choice;
     cin >> choice;
-    fstream newfile;
     switch(choice)
     {
         case 1:
         {
+            fstream newfile;
             string username, password, data;
             cin >> username;
             cin >> password;
@@ -94,10 +106,11 @@ void login()
             
         case 2:
         {
+            fstream newfile;
             string username, password, data;
             cin >> username;
             cin >> password;
-            newfile.open("logins.txt",ios::in, ios::app);  
+            newfile.open("logins.txt",ios::in);  
             if(newfile.is_open()) 
             {
                 while(getline(newfile, data)) 
@@ -113,6 +126,6 @@ void login()
 
 int main()
 {
-    
+    menu("dab");
     return 0;
 }
