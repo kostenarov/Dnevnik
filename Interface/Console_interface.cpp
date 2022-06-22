@@ -2,6 +2,8 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
+#include <string>
 
 using namespace std;
 
@@ -25,27 +27,29 @@ class Story
         const string& getStoryName()const{  return this->storyName;  }
         const string& getStory()const{  return this->story;  }
         
-        void writeStory(const Story& story1, const string& user)
-        {
-            fstream newfile;
-            string fileName;
-            fileName = user + ".txt";
-            newfile.open(fileName,ios::app);  
-            if(newfile.is_open()) 
-            {
-                newfile << "Story date: " << story1.getDate() << endl << "Story name: " << story1.getStoryName() << endl << "Story: " << endl << story1.getStory() << endl;  
-                newfile.close();    
-            }
-        }
 };
 
+void writeStory(const Story& story1, const string& user)
+{
+    fstream newfile;
+    string fileName;
+    fileName = user + ".txt";
+    newfile.open(fileName,ios::app);  
+    if(newfile.is_open()) 
+    {
+        newfile << "Story date: " << story1.getDate() << endl << "Story name: " << story1.getStoryName() << endl << "Story: " << endl << story1.getStory() << endl;  
+        newfile.close();    
+    }
+}
+    
 void menu(const string& username)
 {
     size_t choice;
-    while(choice != 3)
+    while(choice != 4)
     {
-        cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3:Exit." << endl;
+        cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story" << endl << "3:Exit." << endl;
         cin >> choice;
+        system("cls");
         switch(choice)
         {
             case 1:
@@ -57,23 +61,12 @@ void menu(const string& username)
                 cout << "Story name:";
                 cin >> storyName;
                 cout << "Enter story:";
-                while(getline(cin, storyTemp))
+                while(!getline(cin, storyTemp, '#'))
                 {
-                    if(story != "\n")
-                    {
-                        story += storyTemp;
-                        
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    story += storyTemp;
                 }
                 Story story1(date, storyName, story);
-                story1.writeStory(story1, username);
-                date.erase();
-                storyName.erase();
-                story.erase();
+                writeStory(story1, username);
             }
             case 2:
                 break;
