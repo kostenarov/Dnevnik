@@ -36,7 +36,7 @@ size_t keyToNum(string& key) {
 	return n;
 }
 
-void CBC(string& str, string& key, string& vect) {
+void CBC(string& str, string& key, std::string& vect) {
     	size_t strLen = str.size();
 	size_t vectLen = vect.size();
 	
@@ -51,11 +51,11 @@ void CBC(string& str, string& key, string& vect) {
 
 
 void DeCBC(string& str, string& key, string& vect, size_t vectLen) {
-    	size_t strLen = str.size();
+    size_t strLen = str.size();
 	string tempVect = str;
 	
 	decipherN(str, strLen, keyToNum(key));
-	
+	cout << str << endl << key << endl << vect << endl << vectLen << endl;
 	for (size_t i = 0; i < strLen; ++i) {
 		str[i] = str[i] ^ vect[i % vectLen];
 	}
