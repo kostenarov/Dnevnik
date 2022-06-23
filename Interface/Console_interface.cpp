@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <string>
+#include "cypher.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class Story
         string story;
     
     public:
+    Story() {}
         Story(const string& date, const string& storyName, const string& story)
         {
             if(date.empty() && storyName.empty() && story.empty())
@@ -26,20 +28,29 @@ class Story
         const string& getDate()const{  return this->date;  }
         const string& getStoryName()const{  return this->storyName;  }
         const string& getStory()const{  return this->story;  }
+        void setStory(const string& story)
+        {
+            this->story = story;
+        }
         
 
-    void writeStory(const Story& story1, const string& user)
-{
-    fstream newfile;
-    string fileName;
-    fileName = user + ".txt";
-    newfile.open(fileName,ios::app);  
-    if(newfile.is_open()) 
+    void writeStory(const Story& story1, const string& user, string& password, string& vect)
     {
-        newfile << "Story date: " << story1.getDate() << endl << "Story name: " << story1.getStoryName() << endl << "Story: " << endl << story1.getStory() << endl;  
-        newfile.close();    
+        fstream newfile;
+        string fileName, storyTemp;
+        storyTemp = story1.getStory();
+        fileName = user + ".txt";
+        newfile.open(fileName, ios::app);
+        if(newfile.is_open()) 
+        {
+            CBC(storyTemp, password, vect);
+            storyTemp += '#';
+            newfile << story1.getDate() << endl << story1.getStoryName() << endl << storyTemp << endl;  
+            newfile.close();    
+        }
     }
-}
+    
+    
 };
 
 void searchByDate()
@@ -59,8 +70,9 @@ void searchByName()
 void search()
 {
     size_t choice = 0;
-    cout << "1: Search by name" << endl << "2: Search by date" << endl << "3: Go back" << endl;
+    cout << "1: Search by name." << endl << "2: Search by date." << endl << "3: Go back." << endl;
     cin >> choice;
+    cin.ignore();
     switch(choice)
     {
         case 1:
@@ -75,13 +87,31 @@ void search()
 }
 
 void readStories();
+
+void readStory(const string& user, string& password, string& vect)
+    {
+        fstream newfile;
+        string fileName, storyTemp, date, name, input;
+        fileName = user + ".txt";
+        newfile.open(fileName, ios::in);
+        if(newfile.is_open()) 
+        {
+            getline(newfile, date);
+            getline(newfile, name);
+            getline(newfile, storyTemp, '#');
+            DeCBC(storyTemp, password, vect, 6);
+            newfile.close();
+            
+        }
+    }
     
-void menu(const string& username)
+void menu(const string& username, string& password)
 {
     size_t choice;
+    string vect = "kuskus";
     while(choice != 4)
     {
-        cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story" << endl << "4: Exit." << endl;
+        cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story." << endl << "4: Exit." << endl;
         cin >> choice;
         system("cls");
         switch(choice)
@@ -95,25 +125,27 @@ void menu(const string& username)
                 cout << "Story name:";
                 cin >> storyName;
                 cout << "Enter story:";
-                while(!getline(cin, storyTemp, '\t'))
-                {
-                    story += storyTemp;
-                }
+                cin.ignore();
+                getline(cin, story, '#');
+                cin.ignore();
                 Story story1(date, storyName, story);
-                story1.writeStory(story1, username);
-            }
+                story1.writeStory(story1, username, password, vect);
+                continue;
+            };
             
             case 2:
-                break;
+                readStory(username, password, vect);
+                continue;
                 
             case 3:
                 search();
+                continue;
         }
     }
 }
 
 void login()
-{
+{    
     cout << "1: Login" << endl << "2: Register";
     size_t choice;
     cin >> choice;
@@ -121,18 +153,10 @@ void login()
     {
         case 1:
         {
-            fstream newfile;
-            string username, password, data;
+            string username, password;
             cin >> username;
             cin >> password;
-            if(newfile.is_open()) 
-            {
-                while(getline(newfile, data)) 
-                {
-                    if(data == username + " " + password)
-                        menu(username);
-                }
-            }
+            menu(username, password);
         }
             
         case 2:
@@ -148,7 +172,7 @@ void login()
                 {
                     if(data == username + " " + password)
                         newfile << username << " " << password << endl;
-                        menu(username);
+                        menu(username, password);
                 }
             }
         }
@@ -157,6 +181,7 @@ void login()
 
 int main()
 {
-    menu("dab");
+    string password = "kus";
+    menu("dab", password);
     return 0;
 }
