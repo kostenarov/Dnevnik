@@ -27,9 +27,8 @@ class Story
         const string& getStoryName()const{  return this->storyName;  }
         const string& getStory()const{  return this->story;  }
         
-};
 
-void writeStory(const Story& story1, const string& user)
+    void writeStory(const Story& story1, const string& user)
 {
     fstream newfile;
     string fileName;
@@ -41,13 +40,48 @@ void writeStory(const Story& story1, const string& user)
         newfile.close();    
     }
 }
+};
+
+void searchByDate()
+{
+    string date;
+    cout << "Please input the date fom which you would like to read a story: ";
+    cin >> date;
+}
+
+void searchByName()
+{
+    string name;
+    cout << "Please input the date fom which you would like to read a story: ";
+    cin >> name;
+}
+
+void search()
+{
+    size_t choice = 0;
+    cout << "1: Search by name" << endl << "2: Search by date" << endl << "3: Go back" << endl;
+    cin >> choice;
+    switch(choice)
+    {
+        case 1:
+            searchByName();
+        
+        case 2:
+            searchByDate();
+            
+        case 3:
+            break;
+    }
+}
+
+void readStories();
     
 void menu(const string& username)
 {
     size_t choice;
     while(choice != 4)
     {
-        cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story" << endl << "3:Exit." << endl;
+        cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story" << endl << "4: Exit." << endl;
         cin >> choice;
         system("cls");
         switch(choice)
@@ -61,15 +95,19 @@ void menu(const string& username)
                 cout << "Story name:";
                 cin >> storyName;
                 cout << "Enter story:";
-                while(!getline(cin, storyTemp, '#'))
+                while(!getline(cin, storyTemp, '\t'))
                 {
                     story += storyTemp;
                 }
                 Story story1(date, storyName, story);
-                writeStory(story1, username);
+                story1.writeStory(story1, username);
             }
+            
             case 2:
                 break;
+                
+            case 3:
+                search();
         }
     }
 }
