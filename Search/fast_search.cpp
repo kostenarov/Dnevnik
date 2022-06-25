@@ -54,6 +54,8 @@ void removeElementFromNamesTable(string key, Story& story, unordered_map<string,
 
 Story& fastSearchDate(string key, unordered_map<string, vector<Story>> map)
 {
+    if(key.empty())
+        throw invalid_argument("No key provided!");
     if(map[key].empty())
         throw invalid_argument("There is no such story!");
 
@@ -72,5 +74,7 @@ Story& fastSearchDate(string key, unordered_map<string, vector<Story>> map)
 
 Story& fastSearchName(string key, unordered_map<string, Story> map)
 {
+    if(key.empty())
+        throw invalid_argument("No key provided!");
     return map[key];
 }
