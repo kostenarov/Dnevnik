@@ -26,15 +26,17 @@ class Story
             this->story = story;
         }
         
-        Story& operator=(Story& other) {
-            if(*this == other) {
+        Story& operator=(Story& other)
+        {
+            if(this == &other) 
+            {
                 return *this;
             }
-            
+
             this->date = other.date;
             this->storyName = other.storyName;
             this->story = other.story;
-            
+
             return *this;
         }
     
