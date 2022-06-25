@@ -9,6 +9,6 @@
 
 int main()
 {
-    menu("dab");
+    login();
     return 0;
 }
