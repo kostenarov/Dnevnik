@@ -42,7 +42,7 @@ class Story
             this->story = story;
         }
         
-        void writeStory(const Story& story1, const string& user, string& password, string& vect)
+        void writeStory(const Story& story1, const string user, string password, string& vect)
         {
             fstream newfile;
             string fileName, storyTemp;
@@ -70,7 +70,7 @@ class Story
             cout << test.size() << endl;
         }
         
-        void readStory(const string& user, const string& password, string& vect)
+        void readStory(const string user, const string password, string& vect)
         {
             fstream newfile;
             string fileName, storyTemp, date, name, input;
@@ -113,6 +113,7 @@ class User
             if(username.empty() || password.empty())
                 throw invalid_argument("Invalid data");
         }
+    
         User(const string& username, const string& password, vector<Story> stories)
         : username(username), password(password), stories(stories)
         {
