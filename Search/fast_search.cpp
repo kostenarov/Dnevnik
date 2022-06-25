@@ -4,25 +4,23 @@
 #include <ecxeption>
 #include "console_interface.cpp"
 
-unordered_map<string, vector<Story>> addElementToDatesTable(string key, Story& story, unordered_map<string, vector<Story>> map)
+void addElementToDatesTable(string key, Story& story, unordered_map<string, vector<Story>>& map)
 {
     if(key.empty())
         throw invalid_argument("No key provided!");
 
     map[key].push_back(story);
-    return map;
 }
 
-unordered_map<string, Story> addElementToNamesTable(string key, Story& story, unordered_map<string, Story> map)
+void addElementToNamesTable(string key, Story& story, unordered_map<string, Story>& map)
 {
     if(key.empty())
         throw invalid_argument("No key provided!");
 
     map[key] = story;
-    return map;
 }
 
-unordered_map<string, vector<Story>> removeElementFromDatesTable(string key, Story& story, unordered_map<string, vector<Story>> map)
+void removeElementFromDatesTable(string key, Story& story, unordered_map<string, vector<Story>>& map)
 {
     if(key.empty())
         throw invalid_argument("No key provided!");
@@ -40,20 +38,18 @@ unordered_map<string, vector<Story>> removeElementFromDatesTable(string key, Sto
         short index;
         cin >> index;
         //map[key].erase(map[key].begin() + index - 1);
-        return map;
+        return;
     }
 
     map[key].pop_back();
-    return map;
 }
 
-unordered_map<string, Story> removeElementFromNamesTable(string key, Story& story, unordered_map<string, Story> map)
+void removeElementFromNamesTable(string key, Story& story, unordered_map<string, Story>& map)
 {
     if(key.empty())
         throw invalid_argument("No key provided!");
 
     map.erase(key);
-    return map;
 }
 
 Story& fastSearchDate(string key, unordered_map<string, vector<Story>> map)
