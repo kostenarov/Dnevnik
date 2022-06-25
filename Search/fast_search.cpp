@@ -69,3 +69,8 @@ Story& fastSearchDate(string key, unordered_map<string, vector<Story>> map)
     }
     return map[key][0];
 }
+
+Story& fastSearchName(string key, unordered_map<string, Story> map)
+{
+    return map[key];
+}
