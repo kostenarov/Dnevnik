@@ -37,7 +37,7 @@ void search()
     }
 }
     
-void menu(const string& username)
+void menu(User& user)
 {
     size_t choice;
     string vectDe = "kuskus", vectEn = "kuskus", password = "kus";
@@ -62,7 +62,7 @@ void menu(const string& username)
                 getline(cin, story, '#');
                 cin.ignore();
                 Story story1(date, storyName, story);
-                story1.writeStory(story1, username, password, vectEn);
+                story1.writeStory(story1, user.getUsername(), user.getPassword(), vectEn);
                 //cout << vect;
                 continue;
             };
@@ -71,7 +71,7 @@ void menu(const string& username)
             {
             //cout <<vect << endl;
                 Story story2;
-                story2.readStory(username, password, vectDe);
+                story2.readStory(user.getUsername(), user.getPassword(), vectDe);
                 continue;
             };
             
@@ -84,7 +84,7 @@ void menu(const string& username)
 
 void login()
 {
-    cout << "1: Login" << endl << "2: Register";
+    cout << "1: Login" << endl << "2: Register"<< endl;
     size_t choice;
     cin >> choice;
     switch(choice)
@@ -95,12 +95,15 @@ void login()
             string username, password, data;
             cin >> username;
             cin >> password;
+            
+            User user(username, password);
+            
             if(newfile.is_open()) 
             {
                 while(getline(newfile, data)) 
                 {
                     if(data == username + " " + password)
-                        menu(username);
+                        menu(user);
                 }
             }
         }
@@ -111,15 +114,16 @@ void login()
             string username, password, data;
             cin >> username;
             cin >> password;
-            newfile.open("logins.txt",ios::in);  
+            
+            User user(username, password);
+            
+            newfile.open("logins.txt",ios::app);  
             if(newfile.is_open()) 
             {
-                while(getline(newfile, data)) 
-                {
-                    if(data == username + " " + password)
-                        newfile << username << " " << password << endl;
-                        menu(username);
-                }
+                cout << "kus" << endl;
+                
+                newfile << user.getUsername() << "\t" << user.getPassword() << endl;
+                menu(user);
             }
         }
     }
