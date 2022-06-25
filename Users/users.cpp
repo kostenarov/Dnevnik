@@ -11,7 +11,6 @@ class User
     string username;
     string password;
     vector<Story> stories;
-    //if multiple diaries are needed
     
     public:
         User(const string& username, const string& password, vector<Story> stories)
