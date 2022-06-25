@@ -106,6 +106,13 @@ class User
     //if multiple diaries are needed
     
     public:
+    
+        User(const string& username, const string& password)
+        : username(username), password(password)
+        {
+            if(username.empty() || password.empty())
+                throw invalid_argument("Invalid data");
+        }
         User(const string& username, const string& password, vector<Story> stories)
         : username(username), password(password), stories(stories)
         {
