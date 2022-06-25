@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -9,23 +10,23 @@ class User
 {
     string username;
     string password;
-    vector<Diary> diaries;
+    vector<Story> stories;
     //if multiple diaries are needed
     
     public:
-        User(const string& username, const string& password, vector<Diary> diaries)
-        : username(username), password(password), diaries(diaries)
+        User(const string& username, const string& password, vector<Story> stories)
+        : username(username), password(password), stories(stories)
         {
-            if(username.empty() || password.empty() || diaries.empty())
+            if(username.empty() || password.empty() || stories.empty())
                 throw invalid_argument("Invalid data");
         }
         
         User(const User& other)
-        : username(other.username), password(other.password), diaries(other.diaries){}
+        : username(other.username), password(other.password), stories(other.stories){}
         
         const string& getUsername()const{  return this->username;  }
         const string& getPassword()const{  return this->password;  }
-        const vector<Diary>& getDiaries() const { return this->diaries; }
+        const vector<Story>& getStories() const { return this->stories; }
         
         void setUsername(const string& username){ 
             
@@ -42,12 +43,12 @@ class User
             this->password = password;
         }
         
-        User& addDiary(const Diary& diary){
+        User& addStory(const Story& story){
             
-            if(diary.empty())
-                throw invalid_argument("Invalid diary provided!");
+            if(story.empty())
+                throw invalid_argument("Invalid story provided!");
                 
-            this->diaries.push_back(diary);
+            this->stories.push_back(story);
             return *this;
         }
 
