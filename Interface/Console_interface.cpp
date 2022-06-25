@@ -25,6 +25,19 @@ class Story
             this->storyName = storyName;
             this->story = story;
         }
+        
+        Story& operator=(Story& other) {
+            if(*this == other) {
+                return *this;
+            }
+            
+            this->date = other.date;
+            this->storyName = other.storyName;
+            this->story = other.story;
+            
+            return *this;
+        }
+    
         const string& getDate()const{  return this->date;  }
         const string& getStoryName()const{  return this->storyName;  }
         const string& getStory()const{  return this->story;  }
