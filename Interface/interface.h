@@ -62,9 +62,11 @@ void menu(User& user)
                 getline(cin, story, '#');
                 cin.ignore();
                 Story story1(date, storyName, story);
+                
+                user.addStory(story1);
                 story1.writeStory(story1, user.getUsername(), user.getPassword(), vectEn);
                 //cout << vect;
-                continue;
+                break;
             };
             
             case 2:
@@ -72,12 +74,12 @@ void menu(User& user)
             //cout <<vect << endl;
                 Story story2;
                 story2.readStory(user.getUsername(), user.getPassword(), vectDe);
-                continue;
+                break;
             };
             
             case 3:
                 search();
-                continue;
+                break;
         }
     }
 }
@@ -93,26 +95,40 @@ void login()
         {
             fstream newfile;
             string username, password, data;
+            
+            cout << "Enter username: ";
             cin >> username;
+            cout << "Enter password: ";
             cin >> password;
             
             User user(username, password);
+            
+            newfile.open("logins.txt", ios::in);
             
             if(newfile.is_open()) 
             {
                 while(getline(newfile, data)) 
                 {
-                    if(data == username + " " + password)
+                    cout << data << endl;
+                    if(data == user.getUsername() + "\t" + user.getPassword()){
+                        newfile.close();
                         menu(user);
+                    }
                 }
             }
-        }
+            
+            newfile.close();
+            break;
+        };
             
         case 2:
         {
             fstream newfile;
             string username, password, data;
+            
+            cout << "Enter username: ";
             cin >> username;
+            cout << "Enter password: ";
             cin >> password;
             
             User user(username, password);
@@ -120,12 +136,12 @@ void login()
             newfile.open("logins.txt",ios::app);  
             if(newfile.is_open()) 
             {
-                cout << "kus" << endl;
-                
                 newfile << user.getUsername() << "\t" << user.getPassword() << endl;
+                newfile.close();
                 menu(user);
             }
-        }
+            break;
+        };
     }
 }
 
