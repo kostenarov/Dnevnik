@@ -39,6 +39,7 @@ void login(){
                             
                             User user(username, hashedPass);
                             menu(user);
+                            system("clear");
                             break;
                         }
                     }
@@ -72,6 +73,7 @@ void login(){
                 newfile << user.getUsername() << "\t" << user.getPassword() << endl;
                 newfile.close();
                 menu(user);
+                system("clear");
             }
             
             break;
