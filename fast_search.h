@@ -7,7 +7,6 @@ using namespace std;
 
 void addElementToDatesTable(string key, Story& story, unordered_map<string, vector<Story>>& map)
 {
-cout << story.getStoryName();
     if(key.empty())
         throw invalid_argument("No key provided!");
 
