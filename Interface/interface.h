@@ -58,20 +58,17 @@ void menu(User& user)
                 cin >> storyName;
                 cout << "Enter story:";
                 //getline(cin, story);
-                cin.ignore();
                 getline(cin, story, '#');
                 cin.ignore();
                 Story story1(date, storyName, story);
                 
                 user.addStory(story1);
                 story1.writeStory(story1, user.getUsername(), user.getPassword(), vectEn);
-                //cout << vect;
                 break;
             };
             
             case 2:
             {
-            //cout <<vect << endl;
                 Story story2;
                 story2.readStory(user.getUsername(), user.getPassword(), vectDe);
                 break;
