@@ -32,7 +32,7 @@ class User
         
         const string& getUsername()const { return this->username; }
         const string& getPassword()const { return this->password; }
-        const vector<Story>& getStories() const { return this->stories; }
+        vector<Story> getStories() const { return this->stories; }
         
         void setUsername(const string& username){ 
             
