@@ -68,7 +68,7 @@ class Story
         
         void readStory(fstream& newfile, string password, string& vect) 
         {
-            string storyTemp, date, name, input;
+            string storyTemp, date, name, input, garbageVal;
         
             getline(newfile, date);
             DeCBC(date, password, vect);
@@ -82,7 +82,7 @@ class Story
             DeCBC(storyTemp, password, vect);
                 
             cout << storyTemp << endl << date << endl << name << endl;
-                        
+            getline(newfile, garbageVal);             
             this->date = date;
             this->storyName = name;
             this->story = storyTemp;
