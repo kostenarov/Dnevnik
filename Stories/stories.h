@@ -36,7 +36,7 @@ class Story
         
         const string& getDate()const{  return this->date;  }
         const string& getStoryName()const{  return this->storyName;  }
-        const string& getStory()const{  return this->story;  }
+        const Story& getStory()const{  return this->story;  }
         void setStory(const string& story)
         {
             this->story = story;
