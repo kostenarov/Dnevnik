@@ -83,6 +83,7 @@ void menu(User& user)
 
 void login()
 {
+    string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     cout << "1: Login" << endl << "2: Register"<< endl;
     size_t choice;
     cin >> choice;
@@ -97,9 +98,7 @@ void login()
             cin >> username;
             cout << "Enter password: ";
             cin >> password;
-            
-            User user(username, password);
-            
+
             newfile.open("logins.txt", ios::in);
             
             if(newfile.is_open()) 
@@ -107,10 +106,19 @@ void login()
                 while(getline(newfile, data)) 
                 {
                     cout << data << endl;
-                    if(data == user.getUsername() + "\t" + user.getPassword()){
-                        newfile.close();
-                        menu(user);
-                    }
+                    
+                }
+            }
+                        
+            hash<string> hash_obj;
+            string hashedPass;
+            
+            for(int i = 0; i < 53; i++){
+                hashedPass = hash_obj(password + alphabet[i]);
+                if(data == username + "\t" + hashedPass){
+                    User user(username, hashedPass);
+                    menu(user);
+                    break;
                 }
             }
             
@@ -128,7 +136,10 @@ void login()
             cout << "Enter password: ";
             cin >> password;
             
-            User user(username, password);
+            hash<string> hash_obj;
+            string hashedPass = hash_obj(password + alphabet[rand() % 52]);
+            
+            User user(username, hashedPass);
             
             newfile.open("logins.txt",ios::app);  
             if(newfile.is_open()) 
