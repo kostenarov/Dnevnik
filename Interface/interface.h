@@ -11,13 +11,16 @@ void search(User& user)
     unordered_map<string, vector<Story>> dates_map;
     vector <Story> stories = user.getStories();
     	
+    for(int i = 0; i < stories.size(); ++i)
+    {
+    	addElementToDatesTable(stories[i].getDate(), stories[i], dates_map);
+    	addElementToNamesTable(stories[i].getStoryName(), stories[i], names_map);
+    }
+    	
     size_t choice = 0;
     cout << "1: Search by name." << endl << "2: Search by date." << endl << "3: Go back." << endl;
     cin >> choice;
     cin.ignore();
-    
-    
-    
     switch(choice)
     {
         case 1:
@@ -25,7 +28,7 @@ void search(User& user)
             string name;
             cout << "Enter story name: ";
             cin >> name;
-            cout << fastSearchName(name, names_map).getStoryName() << endl;
+            cout << fastSearchName(name, names_map).getStory() << endl;
             break;
        	};
         
@@ -50,15 +53,11 @@ void menu(User& user)
     fstream newfile;
     newfile.open(fileName, ios::in);
     
-    while(newfile.is_open() && !newfile.eof()) {
+    while(newfile.is_open() && !newfile.eof() && getline(newfile, temp1, '#')) {
         Story temp;
         cout << "here 1" << endl;
         temp.readStory(newfile, user.getPassword(), vectDe);
-        if(temp.getStory().empty()) {
-            break;
-        } else {
-            user.addStory(temp);
-        }
+        user.addStory(temp);
     }
     
     cout << "here 2" << endl;
