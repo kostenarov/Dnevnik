@@ -33,13 +33,6 @@ class Story
             
             return *this;
         }
-    
-        Story& operator<<(Story& other)
-        {
-            cout << other.getDate();
-            cout << other.getName();
-            cout << other.getStory();
-        }
         
         const string& getDate()const{  return this->date;  }
         const string& getStoryName()const{  return this->storyName;  }
@@ -73,32 +66,38 @@ class Story
             }
         }
         
-        void readStory(const string user, string password, string& vect)
+        void readStory(fstream& newfile, string password, string& vect) 
         {
-            fstream newfile;
-            string fileName, storyTemp, date, name, input;
-            fileName = user + ".txt";
-            newfile.open(fileName, ios::in);
-            if(newfile.is_open()) 
-            {
-                getline(newfile, date);
-                DeCBC(date, password, vect);
+            string storyTemp, date, name, input;
+        
+            getline(newfile, date);
+            DeCBC(date, password, vect);
+                        
+            getline(newfile, name);
+            
+            DeCBC(name, password, vect);
+            
+            getline(newfile, storyTemp, '#');
+                        
+            DeCBC(storyTemp, password, vect);
                 
-                getline(newfile, name);
-                DeCBC(name, password, vect);
-                
-                getline(newfile, storyTemp, '#');
-                
-                //cout << storyTemp << endl << password << endl << vect << endl;
-                DeCBC(storyTemp, password, vect);
-                
-                cout << date << endl;
-                cout << name << endl;
-                cout << storyTemp << endl;
-                newfile.close();
-                
-            }
+            cout << storyTemp << endl << date << endl << name << endl;
+                        
+            this->date = date;
+            this->storyName = name;
+            this->story = storyTemp;
         }
+        
+        friend ostream& operator<<(ostream& out, Story& other)
+        {
+            out << other.date << endl;
+            out << other.storyName << endl;
+            out << other.story << endl;
+            
+            return out;
+        }
+        
+        //friend fstream& operator>>(fstream)
 };
 
 class User
