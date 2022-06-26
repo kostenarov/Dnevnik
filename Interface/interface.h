@@ -53,11 +53,10 @@ void menu(User& user)
     fstream newfile;
     newfile.open(fileName, ios::in);
     
-    while(newfile.is_open() && !newfile.eof() && getline(newfile, temp1, '#')) {
-        Story temp;
-        cout << "here 1" << endl;
-        temp.readStory(newfile, user.getPassword(), vectDe);
-        user.addStory(temp);
+    while(newfile.is_open() && newfile.peek() != EOF) {
+        Story tempStory;
+        tempStory.readStory(newfile, user.getPassword(), vectDe);
+        user.addStory(tempStory);
     }
     
     cout << "here 2" << endl;
