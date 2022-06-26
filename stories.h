@@ -34,7 +34,7 @@ class Story
             return *this;
         }
         
-	    const string& getDate()const{  return this->date;  }
+	const string& getDate()const{  return this->date;  }
     	const string& getStoryName()const{  return this->storyName;  }
     	const string& getStory()const{  return this->story;  }
         void setStory(const string& story)
@@ -80,7 +80,7 @@ class Story
             getline(newfile, storyTemp, '#');
                         
             DeCBC(storyTemp, password, vect);
-
+	    //cout << storyTemp << endl << date << endl << name << endl;
             getline(newfile, garbageVal);             
             this->date = date;
             this->storyName = name;
