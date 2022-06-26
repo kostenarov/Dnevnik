@@ -7,6 +7,7 @@ using namespace std;
 
 void addElementToDatesTable(string key, Story& story, unordered_map<string, vector<Story>>& map)
 {
+cout << story.getStoryName();
     if(key.empty())
         throw invalid_argument("No key provided!");
 
@@ -21,7 +22,7 @@ void addElementToNamesTable(string key, Story& story, unordered_map<string, Stor
     map[key] = story;
 }
 
-Story& fastSearchDate(string key, unordered_map<string, vector<Story>> map)
+Story fastSearchDate(string key, unordered_map<string, vector<Story>> map)
 {
     if(key.empty())
         throw invalid_argument("No key provided!");
@@ -42,7 +43,7 @@ Story& fastSearchDate(string key, unordered_map<string, vector<Story>> map)
     return map[key][0];
 }
 
-Story& fastSearchName(string key, unordered_map<string, Story> map)
+Story fastSearchName(string key, unordered_map<string, Story> map)
 {
     if(key.empty())
         throw invalid_argument("No key provided!");
