@@ -1,9 +1,3 @@
-#include <iostream>
-#include <unordered_map>
-#include <vector>
-#include <ecxeption>
-#include "console_interface.cpp"
-
 void addElementToDatesTable(string key, Story& story, unordered_map<string, vector<Story>>& map)
 {
     if(key.empty())
