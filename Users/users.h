@@ -5,23 +5,25 @@ using namespace std;
 
 class Story
 {
-    string date;
-    string storyName;
-    string story;
+    private:
+        string date;
+        string storyName;
+        string story;
     
     public:
         Story() {}
         
         Story(const string& date, const string& storyName, const string& story)
-        : date(date), storyName(storyName), story(story)
         {
-            if(date.empty() || storyName.empty() || story.empty())
-                throw invalid_argument("Invalid data");
+            if(date.empty() && storyName.empty() && story.empty())
+                throw "Invalid data";
+            this->date = date;
+            this->storyName = storyName;
+            this->story = story;
         }
         
-        Story& operator=(Story& other){
-            
-            if(this == &other){
+        Story& operator=(Story& other) {
+            if(this == &other) {
                 return *this;
             }
             
@@ -32,37 +34,16 @@ class Story
             return *this;
         }
         
-        const string& getDate()const { return this->date; }
-        const string& getStoryName()const { return this->storyName; }
-        const string& getStory()const { return this->story; }
-        
-        void setDate(const string& date){
-            
-            if(date.empty()){
-                throw invalid_argument("Invalid data");
-            } 
-            
-            this->date = date;
-        }
-        void setStoryName(const string& story){
-            
-            if(storyName.empty()){
-                throw invalid_argument("Invalid data");
-            } 
-            
-            this->storyName = storyName;
-        }
-        void setStory(const string& story){
-            
-            if(story.empty()){
-                throw invalid_argument("Invalid data");
-            } 
-            
+        const string& getDate()const{  return this->date;  }
+        const string& getStoryName()const{  return this->storyName;  }
+        const string& getStory()const{  return this->story;  }
+        void setStory(const string& story)
+        {
             this->story = story;
         }
         
-        void writeStory(const Story& story1, const string user, string password, string& vect){
-            
+        void writeStory(const Story& story1, const string user, string password, string& vect)
+        {
             fstream newfile;
             string fileName, storyTemp, storyName, date;
             storyTemp = story1.getStory();
@@ -72,7 +53,8 @@ class Story
             fileName = user + ".txt";
             newfile.open(fileName, ios::app);
             
-            if(newfile.is_open()){
+            if(newfile.is_open()) 
+            {
                 
                 CBC(date, password, vect);
                 CBC(storyName, password, vect);
@@ -84,15 +66,14 @@ class Story
             }
         }
         
-        void readStory(const string user, string password, string& vect){
-            
+        void readStory(const string user, string password, string& vect)
+        {
             fstream newfile;
             string fileName, storyTemp, date, name, input;
             fileName = user + ".txt";
             newfile.open(fileName, ios::in);
-            
-            if(newfile.is_open()){
-                
+            if(newfile.is_open()) 
+            {
                 getline(newfile, date);
                 DeCBC(date, password, vect);
                 
