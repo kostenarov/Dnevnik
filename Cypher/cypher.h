@@ -11,7 +11,7 @@ size_t keyToNum(const std::string& key) {
     return n;
 }
 
-void sub(string str, string key, int n) {
+void sub(string& str, string& key, int n) {
     
     //n = n - (n % 7);
     
@@ -19,15 +19,19 @@ void sub(string str, string key, int n) {
     string ciphered;
 
     ciphered[len] = '\0';
-    int alphaNum = 96;
+    int alphaNum = 256;
 
     for(int i = 0; i < len; ++i) {
         char c = key[i % key.size()];
-        short ch = str[i]  - ' ' +((c - ' ') *n)%alphaNum;
-        if(ch >= alphaNum) ch = ch % alphaNum + ' ';
-        else ch = ch % alphaNum + ' ';
-        ciphered[i] = ch;
+        
+        int ch = str[i] + ((c * n) % alphaNum);
+        
+        ch = ch % alphaNum;
+        
+        ciphered.push_back(ch);
     }
+    
+    str = ciphered;
 
     //printf("%s\n", ciphered);
 }
@@ -53,16 +57,20 @@ void desub(string& str, string& key, int n) {
     string deciphered;
     deciphered[len] = '\0';
 
-    int alphaNum = 96;
+    int alphaNum = 256;
 
     for(int i = 0; i < len; ++i) {
         char c = key[i % key.size()];
-        short ch =  str[i] - 127 - ((c - ' ') * n) % alphaNum;
-        if(ch < 0) ch = 127 - abs(ch) % alphaNum;
-        else ch = ch % alphaNum + ' ';
-        deciphered[i] = ch;
+        
+        short ch =  str[i] - ((c * n) % alphaNum);
+        if(ch < 0) ch = 256 - abs(ch) % alphaNum;
+        else ch = ch % alphaNum;
+        
+        deciphered.push_back(ch);
     }
-
+    
+    str = deciphered;
+    
     //printf("%s\n", deciphered);
 }
 
