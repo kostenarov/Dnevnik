@@ -1,6 +1,8 @@
 #ifndef SEARCH_H
 #define SEARCH_H
 
+#include "stories.h"
+
 using namespace std;
 
 void addElementToDatesTable(string key, Story& story, unordered_map<string, vector<Story>>& map)
