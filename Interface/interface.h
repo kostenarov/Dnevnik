@@ -3,41 +3,11 @@
 
 #include "cipher.h"
 #include "users.h"
-
-void searchByDate()
-{
-    string date;
-    cout << "Please input the date fom which you would like to read a story: ";
-    cin >> date;
-    if(!date.empty())
-    {
-        
-    }
-    else
-    {
-        cout << "Date is invalid" << endl; // throw "Invalid date!"
-        break;
-    }
-}
-
-void searchByName()
-{
-    string name;
-    cout << "Please input the date fom which you would like to read a story: ";
-    cin >> name;
-    if(!name.empty())
-    {
-        
-    }
-    else
-    {
-        cout << "Name is invalid" << endl; // throw "Invalid name!"
-        break;
-    }
-}
+#include "search.h"
 
 void search()
 {
+    /*
     size_t choice = 0;
     cout << "1: Search by name." << endl << "2: Search by date." << endl << "3: Go back." << endl;
     cin >> choice;
@@ -45,20 +15,46 @@ void search()
     switch(choice)
     {
         case 1:
-            searchByName();
+            string name;
+            cout << "Enter story name: ";
+            cin >> name;
+            fastSearchName(name);
         
         case 2:
-            searchByDate();
+            string date;
+            cout << "Enter story date: ";
+            cin >> date;
+            fastSearchDate(date);
             
         case 3:
             break;
-    }
+    }*/
 }
     
 void menu(User& user)
 {
+    string vectDe = "kuskus", vectEn;
+    string fileName = user.getUsername() + ".txt";
+    fstream newfile;
+    newfile.open(fileName, ios::in);
+    
+    while(newfile.is_open() && !newfile.eof()) {
+        Story temp;
+        cout << "here 1" << endl;
+        temp.readStory(newfile, user.getPassword(), vectDe);
+        user.addStory(temp);
+    }
+    
+    cout << "here 2" << endl;
+    newfile.close();
+    
+    vectEn = vectDe;
+    
+    cout << vectDe.size() << " " << vectEn.size() << endl;
+    
+    cout << user.getStories().size() << endl;
+    
     size_t choice;
-    string vectDe = "kuskus", vectEn = "kuskus", password = "kus";
     while(choice != 4)
     {
         cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story." << endl << "4: Exit." << endl;
@@ -87,8 +83,11 @@ void menu(User& user)
             
             case 2:
             {
-                Story story2;
-                story2.readStory(user.getUsername(), user.getPassword(), vectDe);
+                vector<Story> stories = user.getStories();
+                for(int i = 0; i < stories.size(); ++i) {
+                    cout << stories[i];
+                }
+                
                 break;
             };
             
@@ -123,15 +122,11 @@ void login()
             {
                 while(getline(newfile, data)) 
                 {
-                    //cout << data << endl;
                     hash<string> hash_obj;
                     string hashedPass;
                 
                     for(int i = 0; i < 53; i++){
                         hashedPass = to_string(hash_obj(password + alphabet[i]));
-                        
-                        cout << "Data: " << data << endl;
-                        cout << "Hash: " << hashedPass << endl << endl;
         
                         if(data == username + "\t" + hashedPass){
                             User user(username, hashedPass);
