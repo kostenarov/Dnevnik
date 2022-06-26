@@ -74,13 +74,11 @@ void menu(User& user)
             case 1:
             {
                 string date, storyName, storyTemp, story;
-                size_t counter = 0;
                 cout << "Date:";
                 cin >> date;
                 cout << "Story name:";
                 cin >> storyName;
                 cout << "Enter story:";
-                //getline(cin, story);
                 getline(cin, story, '#');
                 cin.ignore();
                 Story story1(date, storyName, story);
