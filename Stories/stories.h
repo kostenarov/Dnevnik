@@ -99,3 +99,5 @@ class Story
         
         //friend fstream& operator>>(fstream)
 };
+
+#endif
