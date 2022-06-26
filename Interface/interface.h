@@ -105,20 +105,22 @@ void login()
             {
                 while(getline(newfile, data)) 
                 {
-                    cout << data << endl;
-                    
-                }
-            }
+                    //cout << data << endl;
+                    hash<string> hash_obj;
+                    string hashedPass;
+                
+                    for(int i = 0; i < 53; i++){
+                        hashedPass = to_string(hash_obj(password + alphabet[i]));
                         
-            hash<string> hash_obj;
-            string hashedPass;
-            
-            for(int i = 0; i < 53; i++){
-                hashedPass = hash_obj(password + alphabet[i]);
-                if(data == username + "\t" + hashedPass){
-                    User user(username, hashedPass);
-                    menu(user);
-                    break;
+                        cout << "Data: " << data << endl;
+                        cout << "Hash: " << hashedPass << endl << endl;
+        
+                        if(data == username + "\t" + hashedPass){
+                            User user(username, hashedPass);
+                            menu(user);
+                            break;
+                        }
+                    }
                 }
             }
             
@@ -137,7 +139,7 @@ void login()
             cin >> password;
             
             hash<string> hash_obj;
-            string hashedPass = hash_obj(password + alphabet[rand() % 52]);
+            string hashedPass = to_string(hash_obj(password + alphabet[rand() % 52]));
             
             User user(username, hashedPass);
             
