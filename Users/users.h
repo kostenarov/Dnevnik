@@ -138,8 +138,8 @@ class User
         User(const User& other)
         : username(other.username), password(other.password), stories(other.stories){}
         
-        const string& getUsername()const{  return this->username;  }
-        const string& getPassword()const{  return this->password;  }
+        const string& getUsername()const { return this->username; }
+        const string& getPassword()const { return this->password; }
         const vector<Story>& getStories() const { return this->stories; }
         
         void setUsername(const string& username){ 
