@@ -9,6 +9,15 @@ void searchByDate()
     string date;
     cout << "Please input the date fom which you would like to read a story: ";
     cin >> date;
+    if(!date.empty())
+    {
+        
+    }
+    else
+    {
+        cout << "Date is invalid" << endl; // throw "Invalid date!"
+        break;
+    }
 }
 
 void searchByName()
@@ -16,6 +25,15 @@ void searchByName()
     string name;
     cout << "Please input the date fom which you would like to read a story: ";
     cin >> name;
+    if(!name.empty())
+    {
+        
+    }
+    else
+    {
+        cout << "Name is invalid" << endl; // throw "Invalid name!"
+        break;
+    }
 }
 
 void search()
