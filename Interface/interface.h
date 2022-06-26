@@ -53,8 +53,9 @@ void menu(User& user)
     fstream newfile;
     newfile.open(fileName, ios::in);
     
-    while(newfile.is_open() && newfile.peek() != EOF) {
+    while(newfile.is_open() && newfile.peek() != EOF && newfile.peek() != 10) {
         Story tempStory;
+        cout << newfile.peek() << endl;
         tempStory.readStory(newfile, user.getPassword(), vectDe);
         user.addStory(tempStory);
     }
