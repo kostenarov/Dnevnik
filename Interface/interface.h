@@ -3,42 +3,54 @@
 
 #include "cipher.h"
 #include "users.h"
-#include "search.h"
+#include "fast_search.h"
 
-void search()
+void search(User& user)
 {
-    /*
+    unordered_map<string, Story> names_map;
+    unordered_map<string, vector<Story>> dates_map;
+    vector <Story> stories = user.getStories();
+    	
     size_t choice = 0;
     cout << "1: Search by name." << endl << "2: Search by date." << endl << "3: Go back." << endl;
     cin >> choice;
     cin.ignore();
+    
+    
+    
     switch(choice)
     {
         case 1:
+        {
             string name;
             cout << "Enter story name: ";
             cin >> name;
-            fastSearchName(name);
+            cout << fastSearchName(name, names_map).getStoryName() << endl;
+            break;
+       	};
         
         case 2:
+        {
             string date;
             cout << "Enter story date: ";
             cin >> date;
-            fastSearchDate(date);
-            
+            cout << fastSearchDate(date, dates_map).getStory() << endl;
+            break;
+       	};
         case 3:
             break;
-    }*/
+    }
 }
     
 void menu(User& user)
 {
     string vectDe = "kuskus", vectEn;
     string fileName = user.getUsername() + ".txt";
+    string temp1;
     fstream newfile;
     newfile.open(fileName, ios::in);
     
-    while(newfile.is_open() && !newfile.eof()) {
+    while(newfile.is_open() && !newfile.eof() && getline(newfile, temp1, '#')) {
         Story temp;
         cout << "here 1" << endl;
         temp.readStory(newfile, user.getPassword(), vectDe);
@@ -92,7 +104,12 @@ void menu(User& user)
             };
             
             case 3:
-                search();
+            try{
+                search(user);
+            }catch(exception& e)
+            {
+            	cout << e.what() << endl;
+            }
                 break;
         }
     }
