@@ -1,6 +1,8 @@
 #ifndef USERS_H
 #define USERS_H
 
+#include "interface.h"
+
 using namespace std;
 
 class User
