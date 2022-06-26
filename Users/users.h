@@ -33,6 +33,13 @@ class Story
             
             return *this;
         }
+    
+        Story& operator<<(Story& other)
+        {
+            cout << other.getDate();
+            cout << other.getName();
+            cout << other.getStory();
+        }
         
         const string& getDate()const{  return this->date;  }
         const string& getStoryName()const{  return this->storyName;  }
