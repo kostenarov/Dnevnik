@@ -1,7 +1,7 @@
 #ifndef USERS_H
 #define USERS_H
 
-#include "interface.h"
+#include "stories.h"
 
 using namespace std;
 
