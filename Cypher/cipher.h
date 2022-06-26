@@ -3,7 +3,7 @@
 
 using namespace std;
 
-size_t keyToNum(const std::string& key) {
+size_t keyToNum(const string& key) {
     size_t n = 0;
     size_t len = key.size();
     for (size_t i = 0; i < len; i++)
