@@ -68,7 +68,7 @@ void menu(User& user)
     {
         cout << "1: Write a story." << endl << "2: Read your stories." << endl << "3: Search for a story." << endl << "4: Exit." << endl;
         cin >> choice;
-        system("cls");
+        system("clear");
         switch(choice)
         {
             case 1:
