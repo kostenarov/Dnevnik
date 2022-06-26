@@ -45,32 +45,27 @@ class Story
         void writeStory(const Story& story1, const string user, string password, string& vect)
         {
             fstream newfile;
-            string fileName, storyTemp;
+            string fileName, storyTemp, storyName, date;
             storyTemp = story1.getStory();
+            storyName = story1.getStoryName();
+            date = story1.getDate();
+            
             fileName = user + ".txt";
             newfile.open(fileName, ios::app);
+            
             if(newfile.is_open()) 
             {
+                CBC(date, password, vect);
+                CBC(storyName, password, vect);
                 CBC(storyTemp, password, vect);
                 
                 storyTemp += '#';
-                cout << story1.getDate() << '\t' << story1.getStoryName() << endl;
-                newfile << story1.getDate() << endl << story1.getStoryName() << endl << storyTemp << endl;  
+                newfile << date << endl << storyName << endl << storyTemp << endl;  
                 newfile.close();    
             }
-            
-            string test;
-            ifstream testFile(fileName);
-            getline(testFile, test);
-            cout << test.size() << endl;
-            getline(testFile, test);
-            cout << test.size() << endl;
-            getline(testFile, test, '#');
-            
-            cout << test.size() << endl;
         }
         
-        void readStory(const string user, const string password, string& vect)
+        void readStory(const string user, string password, string& vect)
         {
             fstream newfile;
             string fileName, storyTemp, date, name, input;
@@ -79,18 +74,18 @@ class Story
             if(newfile.is_open()) 
             {
                 getline(newfile, date);
+                DeCBC(date, password, vect);
+                
                 getline(newfile, name);
+                DeCBC(name, password, vect);
+                
                 getline(newfile, storyTemp, '#');
                 
-                cout << storyTemp.size() << endl;
-                
-                for(int i = 0; i < storyTemp.size(); ++i) {
-                    cout << (int)storyTemp[i] << endl;
-                }
-                
                 //cout << storyTemp << endl << password << endl << vect << endl;
-                DeCBC(storyTemp, password, vect, 6);
+                DeCBC(storyTemp, password, vect);
                 
+                cout << date << endl;
+                cout << name << endl;
                 cout << storyTemp << endl;
                 newfile.close();
                 
